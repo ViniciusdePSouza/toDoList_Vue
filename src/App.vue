@@ -1,49 +1,50 @@
 <template>
-  <BaseAlert :variant='variant' :text='text' @close='onClose' v-if="showAlert"/>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/services">Services</router-link>
+  </nav>
+  <router-view />
 </template>
 
 <script>
-import BaseAlert from "@/components/BaseAlert";
 export default {
   name: "App",
-  components: {  BaseAlert },
   data() {
-    return {
-      variant: 'danger',
-      text: "Please enter your ",
-      showAlert: true,
-    };
+    return {};
   },
-methods: {
-  onClose() {
-   this.showAlert = !this.showAlert;
-  }
-}
+  methods: {
+    updateCharacters() {
+      const newCharacter = {
+        firstName: "Arya",
+        lastName: "Snow",
+        email: "arya@gmail.com",
+      };
+
+      this.$store.commit("storeUser", newCharacter);
+    },
+  },
 };
 </script>
 
 <style>
-.title {
-  font-size: 20px;
-  color: blue;
-}
-.title-home {
-  font-size: 40px;
-  color: green;
-}
-
-.todos-items {
-  background-color: #000;
-  margin: 0 0 5px 0;
-  padding: 3px 6px;
-  color: #fff;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
