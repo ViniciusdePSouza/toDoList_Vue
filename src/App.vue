@@ -1,90 +1,24 @@
 <template>
-  <h1 :class="{ title: true, 'title-home': isHome }">Curso Vue</h1>
-  <div>
-    <h2>Tarefas em abertos</h2>
-    <div v-for="task in uncompletedTasks" :key="task.id" class="todos-items">
-      {{ task.title }}
-    </div>
-    <h2>Tarefas em Completas</h2>
-    <div v-for="task in completedTasks" :key="task.id" class="todos-items">
-      {{ task.title }}
-    </div>
-
-    <h2>Lista de Tarefas</h2>
-    <div v-for="task in toDos" :key="task.id">
-      <input type="checkbox" v-model="task.completed" />
-      {{ task.title }}
-    </div>
-  </div>
+  <BaseAlert :variant='variant' :text='text' @close='onClose' v-if="showAlert"/>
 </template>
 
 <script>
+import BaseAlert from "@/components/BaseAlert";
 export default {
   name: "App",
-  components: {},
+  components: {  BaseAlert },
   data() {
     return {
-      showHeader: true,
-      toDos: [
-        {
-          userId: 1,
-          id: 1,
-          title: "delectus aut autem",
-          completed: false,
-        },
-        {
-          userId: 1,
-          id: 2,
-          title: "quis ut nam facilis et officia qui",
-          completed: false,
-        },
-        {
-          userId: 1,
-          id: 3,
-          title: "fugiat veniam minus",
-          completed: false,
-        },
-        {
-          userId: 1,
-          id: 4,
-          title: "et porro tempora",
-          completed: true,
-        },
-        {
-          userId: 1,
-          id: 5,
-          title:
-            "laboriosam mollitia et enim quasi adipisci quia provident illum",
-          completed: false,
-        },
-      ],
-      classVar: "title",
-      isHome: true,
-      name: "",
+      variant: 'danger',
+      text: "Please enter your ",
+      showAlert: true,
     };
   },
-  methods: {
-    onCLick(e) {
-      console.log("click", e);
-    },
-    onMouseOver(e) {
-      console.log("mouse over", e);
-    },
-    onMouseOut(e) {
-      console.log("mouse out", e);
-    },
-    onChange() {
-      console.log(this.name);
-    },
-  },
-  computed: {
-    completedTasks() {
-      return this.toDos.filter((task) => task.completed);
-    },
-    uncompletedTasks() {
-      return this.toDos.filter((task) => !task.completed);
-    },
-  },
+methods: {
+  onClose() {
+   this.showAlert = !this.showAlert;
+  }
+}
 };
 </script>
 
